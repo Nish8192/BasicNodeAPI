@@ -13,42 +13,32 @@ module.exports = (app) => {
         
         if ( (!word) || (typeof word !== 'string') || (!max_value) || (typeof max_value !== 'number') || (max_value <= 0) ) {
             console.log("Type error")
-            return res.status(400).json({status: "error"});
+            return res.status(400).json({status: "error", numbers: []});
         }
 
         if ((word !== 'fizz') && (word !== 'buzz') && (word !== 'fizzbuzz') ) {
-            console.log('word error')
-            return res.status(400).json({ status: "error" });            
+            console.log('Word error')
+            return res.status(400).json({ status: "error", numbers: []});            
         }
 
         let numbers = [];
-        if (word === 'fizz') {
-            for (let i = 3; i <= max_value; i++) {
+
+        for (let i = 3; i <= max_value; i++) {
+            if (word === 'fizz') {
                 if (i % 3 === 0) {
                     numbers.push(i);
                 }
-            }
-            return res.status(200).json({ status: "ok", numbers: numbers })
-        }
-
-        if (word === 'buzz') {
-            for (let i = 3; i <= max_value; i++) {
+            } else if (word === 'buzz') {
                 if (i % 5 === 0) {
                     numbers.push(i);
                 }
-            }
-            return res.status(200).json({ status: "ok", numbers: numbers })
-        }
-
-        if (word === 'fizzbuzz') {
-            for (let i = 3; i <= max_value; i++) {
+            } else {
                 if (i % 3 === 0 && i % 5 === 0) {
                     numbers.push(i);
                 }
             }
-            return res.status(200).json({ status: "ok", numbers: numbers })
+            
         }
-        
-        
+        return res.status(200).json({ status: "ok", numbers: numbers })
     })
 }
